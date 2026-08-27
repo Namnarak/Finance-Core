@@ -1,0 +1,16 @@
+[Unit]
+Description=NamKrub Finance daily summary
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=finance-mcp
+Group=finance-mcp
+EnvironmentFile=-/etc/finance-mcp/finance.env
+ExecStart=/opt/finance-mcp/.venv/bin/finance-daily-summary
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/finance-mcp

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run NamKrub Finance daily summary at 00:05
+
+[Timer]
+OnCalendar=*-*-* 00:05:00
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

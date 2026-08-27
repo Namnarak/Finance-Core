@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Finance Core</title>
+  <meta name="theme-color" content="#090c11" />
+  <meta name="application-name" content="Finance Core" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Finance" />
+  <link rel="manifest" href="/manifest.webmanifest?v=7" />
+  <link rel="icon" href="/icon-192.png?v=3" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/app-icon-180.png?v=6" />
+  <style>
+    :root{--bg:#090c11;--panel:#10161e;--panel2:#0c1117;--line:#202a36;--text:#f5f7fa;--muted:#8793a4;--green:#60e39c;--red:#ff7777;--blue:#82aaff;--yellow:#f4c966;--r:20px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overscroll-behavior-y:none;background:radial-gradient(circle at 80% -10%,rgba(130,170,255,.08),transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}.shell{max-width:1450px;margin:auto;padding:20px;display:grid;grid-template-columns:235px 1fr;gap:20px}.side{position:sticky;top:20px;height:calc(100vh - 40px);border:1px solid var(--line);border-radius:24px;background:rgba(15,20,27,.9);padding:18px;display:flex;flex-direction:column}.brand{display:flex;gap:11px;align-items:center;margin-bottom:22px}.logo{width:42px;height:42px;border-radius:13px;border:1px solid #2a3645;overflow:hidden;background:#141b24;box-shadow:0 0 18px rgba(47,235,183,.12)}.logo img{width:100%;height:100%;display:block;object-fit:cover}.brand b{font-size:14px}.brand small{display:block;color:var(--muted);margin-top:2px}.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;color:var(--muted);text-align:left;padding:11px;border-radius:11px;cursor:pointer}.nav button.active,.nav button:hover{color:var(--text);background:#161d26}.net{margin-top:auto;border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--muted);font-size:11px}.dot{display:inline-block;width:8px;height:8px;background:var(--green);border-radius:50%;margin-right:7px;box-shadow:0 0 16px rgba(96,227,156,.65)}main{min-width:0}.top{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:18px}.top h1{margin:0;font-size:26px;letter-spacing:-.04em}.top p{margin:5px 0 0;color:var(--muted);font-size:12px}.actions{display:flex;gap:8px}.btn{border:1px solid var(--line);background:#151c25;color:var(--text);padding:10px 13px;border-radius:12px;cursor:pointer}.btn:hover{background:#1a2430}.btn.primary{background:var(--text);color:#080b0f;border-color:transparent;font-weight:700}.btn.ghost{background:transparent}.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px}.card{border:1px solid var(--line);background:linear-gradient(180deg,#121922,#0d1219);border-radius:var(--r);padding:18px;min-width:0}.balance{grid-column:span 5;padding:24px;min-height:215px}.guard{grid-column:span 7;padding:24px}.quick{grid-column:span 4}.activity{grid-column:span 8}.budget,.goals,.system{grid-column:span 4}.full{grid-column:span 12}.half{grid-column:span 6}.third{grid-column:span 4}.eyebrow{text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700;font-size:10px}.money{font-size:52px;font-weight:800;letter-spacing:-.06em;margin-top:19px;line-height:1}.money small{font-size:16px;color:var(--muted);letter-spacing:0}.sync{display:inline-flex;margin-top:18px;padding:7px 9px;border-radius:10px;border:1px solid rgba(96,227,156,.15);background:rgba(96,227,156,.06);color:var(--green);font-size:11px}.title{display:flex;justify-content:space-between;gap:12px;margin-bottom:15px}.title h2{font-size:17px;margin:4px 0 0;letter-spacing:-.025em}.title span{color:var(--muted);font-size:11px}.guard-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:end}.safe{font-size:38px;font-weight:800;letter-spacing:-.05em;margin:10px 0 5px}.sub{font-size:11px;color:var(--muted);line-height:1.5}.bar{height:9px;background:#090e13;border:1px solid #1a242e;border-radius:999px;overflow:hidden;margin-top:18px}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--green),#b4f1ce);width:0}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{padding:11px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}.metric span{display:block;color:var(--muted);font-size:10px}.metric b{display:block;margin-top:5px;font-size:16px}.form{display:grid;gap:10px}.form.two{grid-template-columns:1fr 1fr}.form input,.form select{width:100%;border:1px solid var(--line);background:#090e14;color:var(--text);padding:13px 14px;border-radius:13px;outline:none}.form input:focus,.form select:focus{border-color:#40536a}.form .wide{grid-column:1/-1}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#111820;color:var(--muted);font-size:10px;padding:7px 9px;border-radius:999px;cursor:pointer}.status-msg{font-size:11px;min-height:16px;color:var(--muted)}.tx{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:11px 0;border-bottom:1px solid #19222c}.tx:last-child{border-bottom:0}.tx-icon{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line);border-radius:11px;background:#0a0f15}.tx-name{font-size:12px;font-weight:650}.tx-meta{font-size:10px;color:var(--muted);margin-top:4px}.tx-val{font-size:12px;font-weight:750}.tx-val.expense{color:#ff9d9d}.tx-val.income{color:var(--green)}.empty{color:var(--muted);font-size:11px;line-height:1.6;padding:13px 0}.progress{height:7px;background:#090e13;border-radius:999px;overflow:hidden;margin-top:10px}.progress i{display:block;height:100%;background:var(--blue);width:0}.row{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted)}.sys{display:grid;gap:8px}.sys div{display:flex;justify-content:space-between;padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:#0b1016;font-size:11px}.online{color:var(--green)}.danger{color:var(--red)!important}.warning{color:var(--yellow)!important}.list{display:grid;gap:10px}.item{border:1px solid var(--line);border-radius:14px;background:#0b1016;padding:14px}.item-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.item-head b{font-size:13px}.item-head span{font-size:11px;color:var(--muted)}.item-meta{margin-top:8px;color:var(--muted);font-size:11px;line-height:1.55}.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{border:1px solid var(--line);background:#0b1016;border-radius:14px;padding:14px}.stat small{display:block;color:var(--muted);font-size:10px}.stat b{display:block;margin-top:7px;font-size:20px}.mobile{display:none}
+    @media(max-width:1000px){.shell{grid-template-columns:1fr;padding:14px}.side{display:none}.balance,.guard{grid-column:span 6}.quick,.budget,.goals,.system,.half,.third{grid-column:span 6}.activity{grid-column:span 12}.mobile{display:flex;overflow-x:auto;gap:4px;position:fixed;left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));z-index:5;padding:7px;border:1px solid var(--line);border-radius:17px;background:rgba(15,20,27,.94);backdrop-filter:blur(15px)}.mobile button{flex:0 0 auto;border:0;background:transparent;color:var(--muted);padding:9px 11px;font-size:10px;border-radius:10px}.mobile .active{color:var(--text);background:#171f29}main{padding-bottom:78px}}
+    @media(max-width:700px){.balance,.guard,.quick,.activity,.budget,.goals,.system,.half,.third,.full{grid-column:span 12}.guard-grid{grid-template-columns:1fr}.money{font-size:44px}.safe{font-size:34px}.card{border-radius:17px}.top h1{font-size:22px}.actions .secondary{display:none}.form.two{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <div class="brand"><div class="logo"><img src="/icon-192.png?v=3" alt="Finance Core logo"></div><div><b>Finance Core</b><small>Private money system</small></div></div>
+    <div class="nav">
+      <button data-view="overview">⌂ Overview</button>
+      <button data-view="transactions">↕ Transactions</button>
+      <button data-view="guards">◎ Spending Guards</button>
+      <button data-view="budgets">◫ Budgets</button>
+      <button data-view="goals">◇ Goals</button>
+      <button data-view="recurring">↻ Recurring</button>
+      <button data-view="settings">⚙ Settings</button>
+    </div>
+    <div class="net"><span class="dot"></span><b style="color:var(--text)">Tailscale private</b><br><span style="display:block;margin-top:6px">Finance Core + MCP + Web use the same SQLite database.</span></div>
+  </aside>
+
+  <main>
+    <header class="top">
+      <div><h1 id="page-title">Overview</h1><p id="subtitle">กำลังโหลดข้อมูลจริงจาก Finance Core…</p></div>
+      <div class="actions"><button class="btn secondary" onclick="load()">Refresh</button><button class="btn primary" id="top-add" onclick="go('overview');setTimeout(()=>document.getElementById('entry').focus(),50)">+ Add entry</button></div>
+    </header>
+
+    <section class="view" data-page="overview">
+      <div class="grid">
+        <article class="card balance"><div class="eyebrow">Current balance</div><div class="money" id="balance">— <small>THB</small></div><div class="sync"><span class="dot"></span>live from Finance Core</div></article>
+        <article class="card guard"><div class="title"><div><div class="eyebrow">Spending guard</div><h2 id="guard-name">No active guard</h2></div><span id="guard-date">—</span></div><div class="guard-grid"><div><div class="sub">Safe to spend before deadline</div><div class="safe" id="safe">—</div><div class="sub" id="guard-sub">ตั้ง Spending Guard ได้จากหน้า Guards</div><div class="bar"><span id="guard-bar"></span></div></div><div class="metrics"><div class="metric"><span>Reserved</span><b id="reserved">—</b></div><div class="metric"><span>Daily cap</span><b id="daily">—</b></div><div class="metric"><span>Risk</span><b id="risk">—</b></div><div class="metric"><span>Days left</span><b id="days">—</b></div></div></div></article>
+        <article class="card quick"><div class="title"><div><div class="eyebrow">Quick add</div><h2>บันทึกรายการ</h2></div></div><form class="form" onsubmit="addEntry(event)"><input id="entry" autocomplete="off" placeholder="เช่น ข้าว 45 / ได้เงิน 200" /><div class="chips"><button type="button" class="chip" onclick="fill('ข้าว 45')">ข้าว 45</button><button type="button" class="chip" onclick="fill('ค่ารถ 20')">ค่ารถ 20</button><button type="button" class="chip" onclick="fill('ได้เงิน 100')">ได้เงิน 100</button></div><button class="btn primary" type="submit">บันทึก</button><div class="status-msg" id="msg"></div></form></article>
+        <article class="card activity"><div class="title"><div><div class="eyebrow">Transactions</div><h2>ประวัติล่าสุด</h2></div><button class="btn ghost" onclick="go('transactions')">View all</button></div><div id="transactions-mini"><div class="empty">กำลังโหลด…</div></div></article>
+        <article class="card budget"><div class="title"><div><div class="eyebrow">Budget</div><h2>Monthly spending</h2></div><button class="btn ghost" onclick="go('budgets')">Manage</button></div><div id="budget-mini"><div class="empty">ยังไม่มีงบรายเดือน</div></div></article>
+        <article class="card goals"><div class="title"><div><div class="eyebrow">Savings</div><h2>Goals</h2></div><button class="btn ghost" onclick="go('goals')">Manage</button></div><div id="goal-mini"><div class="empty">ยังไม่มีเป้าหมายเงินเก็บ</div></div></article>
+        <article class="card system"><div class="title"><div><div class="eyebrow">System</div><h2>Connection status</h2></div></div><div class="sys"><div><span>Finance Core</span><b class="online" id="core-status">Online</b></div><div><span>MCP database</span><b class="online">Shared</b></div><div><span>Tailscale Serve</span><b class="online">Private</b></div><div><span>Core version</span><b id="version">—</b></div></div></article>
+      </div>
+    </section>
+
+    <section class="view" data-page="transactions">
+      <div class="grid"><article class="card full"><div class="title"><div><div class="eyebrow">History</div><h2>Transactions</h2></div><span id="tx-total">0 รายการ</span></div><div id="transactions-full"><div class="empty">กำลังโหลด…</div></div></article></div>
+    </section>
+
+    <section class="view" data-page="guards">
+      <div class="grid">
+        <article class="card half"><div class="title"><div><div class="eyebrow">Create / update</div><h2>Spending Guard</h2></div></div><form class="form two" onsubmit="saveGuard(event)"><input id="guard-input-name" class="wide" placeholder="ชื่อ เช่น Friday minimum balance" value="Friday minimum balance"><input id="guard-input-min" inputmode="decimal" placeholder="ยอดขั้นต่ำ เช่น 600"><input id="guard-input-date" type="date"><select id="guard-input-account" class="wide"></select><button class="btn primary wide" type="submit">Save guard</button><div class="status-msg wide" id="guard-msg"></div></form></article>
+        <article class="card half"><div class="title"><div><div class="eyebrow">Active</div><h2>Guard status</h2></div></div><div id="guards-list" class="list"></div></article>
+      </div>
+    </section>
+
+    <section class="view" data-page="budgets">
+      <div class="grid">
+        <article class="card half"><div class="title"><div><div class="eyebrow">Monthly budget</div><h2>Set budget</h2></div></div><form class="form two" onsubmit="saveBudget(event)"><input id="budget-category" placeholder="category เช่น food"><input id="budget-amount" inputmode="decimal" placeholder="งบ เช่น 3000"><input id="budget-warning" class="wide" type="number" min="1" max="100" value="80" placeholder="เตือนเมื่อใช้กี่ %"><button class="btn primary wide" type="submit">Save budget</button><div class="status-msg wide" id="budget-msg"></div></form></article>
+        <article class="card half"><div class="title"><div><div class="eyebrow">This month</div><h2>Budget usage</h2></div></div><div id="budgets-list" class="list"></div></article>
+      </div>
+    </section>
+
+    <section class="view" data-page="goals">
+      <div class="grid">
+        <article class="card half"><div class="title"><div><div class="eyebrow">Savings</div><h2>Create goal</h2></div></div><form class="form two" onsubmit="saveGoal(event)"><input id="goal-name" placeholder="ชื่อเป้าหมาย"><input id="goal-target" inputmode="decimal" placeholder="เป้าหมาย เช่น 5000"><input id="goal-saved" inputmode="decimal" placeholder="มีแล้ว เช่น 500"><input id="goal-date" type="date"><button class="btn primary wide" type="submit">Save goal</button><div class="status-msg wide" id="goal-msg"></div></form></article>
+        <article class="card half"><div class="title"><div><div class="eyebrow">Progress</div><h2>Goals</h2></div></div><div id="goals-list" class="list"></div></article>
+      </div>
+    </section>
+
+    <section class="view" data-page="recurring">
+      <div class="grid">
+        <article class="card half"><div class="title"><div><div class="eyebrow">Automation</div><h2>Recurring item</h2></div></div><form class="form two" onsubmit="saveRecurring(event)"><input id="rec-name" placeholder="ชื่อ เช่น ค่า Hosting"><select id="rec-kind"><option value="expense">Expense</option><option value="income">Income</option></select><input id="rec-amount" inputmode="decimal" placeholder="จำนวนเงิน"><input id="rec-category" placeholder="category" value="other"><select id="rec-cadence"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option><option value="yearly">Yearly</option></select><input id="rec-date" type="date"><input id="rec-description" class="wide" placeholder="รายละเอียด"><select id="rec-account" class="wide"></select><button class="btn primary wide" type="submit">Save recurring</button><div class="status-msg wide" id="rec-msg"></div></form></article>
+        <article class="card half"><div class="title"><div><div class="eyebrow">Schedules</div><h2>Recurring</h2></div></div><div id="recurring-list" class="list"></div></article>
+      </div>
+    </section>
+
+    <section class="view" data-page="settings">
+      <div class="grid">
+        <article class="card full"><div class="title"><div><div class="eyebrow">System</div><h2>Finance Core settings</h2></div></div><div class="stat-grid"><div class="stat"><small>Core version</small><b id="settings-version">—</b></div><div class="stat"><small>Accounts</small><b id="settings-accounts">0</b></div><div class="stat"><small>Transactions</small><b id="settings-transactions">0</b></div><div class="stat"><small>Access</small><b style="font-size:15px;color:var(--green)">Tailnet only</b></div></div></article>
+        <article class="card half"><div class="title"><div><div class="eyebrow">Install</div><h2>Finance Core App</h2></div><span id="pwa-badge">Checking…</span></div><div class="item"><div class="item-head"><b>ติดตั้งบนหน้าจอหลัก</b><span>PWA Full</span></div><div class="item-meta" id="pwa-status">กำลังตรวจสอบความพร้อมของเบราว์เซอร์…</div></div><button class="btn primary" id="install-app" style="width:100%;margin-top:10px" type="button">Install app</button><div class="status-msg" id="install-msg" style="margin-top:8px"></div><div class="item" style="margin-top:12px"><div class="item-head"><b>PWA Runtime</b><span id="pwa-network-status">Checking…</span></div><div class="item-meta">App shell offline • offline entry queue • background sync • app badge • shortcuts • share target • update flow</div></div><div class="chips" style="margin-top:10px"><button class="chip" id="enable-notifications" type="button">Enable notifications</button><button class="chip" id="test-notification" type="button">Test push</button><button class="chip" id="check-app-update" type="button">Check update</button><button class="chip" id="apply-app-update" type="button" style="display:none">Apply update</button></div><div class="status-msg" id="notification-status" style="margin-top:8px"></div><div class="status-msg" id="offline-queue-status"></div><div class="status-msg" id="app-update-status"></div></article>
+        <article class="card half"><div class="title"><div><div class="eyebrow">Accounts</div><h2>Tracked accounts</h2></div></div><div id="accounts-list" class="list"></div></article>
+        <article class="card full"><div class="title"><div><div class="eyebrow">Quick links</div><h2>Manage</h2></div></div><div class="list"><button class="btn" onclick="go('budgets')">◫ Budgets</button><button class="btn" onclick="go('goals')">◇ Goals</button><button class="btn" onclick="go('recurring')">↻ Recurring</button><button class="btn" onclick="go('guards')">◎ Spending Guards</button></div></article>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="mobile">
+  <button data-view="overview">Overview</button><button data-view="transactions">History</button><button data-view="guards">Guard</button><button data-view="budgets">Budgets</button><button data-view="goals">Goals</button><button data-view="recurring">Recurring</button><button data-view="settings">Settings</button>
+</div>
+
+<script>
+let state=null;
+const titles={overview:'Overview',transactions:'Transactions',guards:'Spending Guards',budgets:'Budgets',goals:'Goals',recurring:'Recurring',settings:'Settings'};
+const baht=v=>'฿'+Number(String(v||0).replaceAll(',','')).toLocaleString('th-TH',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=v=>Number(String(v||0).replaceAll(',',''));
+const catLabel=v=>({food:'อาหาร/เครื่องดื่ม','อาหาร/เครื่องดื่ม':'อาหาร/เครื่องดื่ม',transport:'เดินทาง',server_hosting:'Server/Hosting',ai:'AI/Software',domain:'โดเมน',software:'ซอฟต์แวร์',utilities:'สาธารณูปโภค',shopping:'ซื้อของ',education:'การศึกษา',entertainment:'บันเทิง',work_income:'รายได้จากงาน',sales_income:'รายได้จากการขาย',income_other:'รายรับอื่นๆ',other:'อื่นๆ'}[v]||String(v||'อื่นๆ').replaceAll('_',' '));
+function go(name){if(!titles[name])name='overview';location.hash=name;show(name)}
+function show(name){if(!titles[name])name='overview';const render=()=>{document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.dataset.page===name));document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));document.getElementById('page-title').textContent=titles[name];document.getElementById('top-add').style.display=name==='overview'?'inline-block':'none';window.scrollTo({top:0,behavior:'smooth'})};if(document.startViewTransition)document.startViewTransition(render);else render()}
+function fill(v){const e=document.getElementById('entry');e.value=v;e.focus()}
+function txHtml(tx){return tx.length?tx.map(t=>`<div class="tx"><div class="tx-icon">${t.kind==='income'?'↗':'↙'}</div><div><div class="tx-name">${esc(t.description)}</div><div class="tx-meta">${esc(catLabel(t.category))} • ${esc((t.occurred_at||'').slice(0,16).replace('T',' '))}${t.account?` • ${esc(t.account)}`:''}</div></div><div class="tx-val ${t.kind}">${t.kind==='income'?'+':'−'}${baht(t.amount)}</div></div>`).join(''):'<div class="empty">ยังไม่มี transaction ที่บันทึกไว้</div>'}
+function apply(d){
+  state=d;try{localStorage.setItem('finance-core-last-dashboard-v1',JSON.stringify({savedAt:Date.now(),data:d}))}catch(_){}const a=d.current_account;document.getElementById('balance').innerHTML=a?`${baht(a.balance)} <small>${esc(a.currency)}</small>`:'— <small>THB</small>';document.getElementById('subtitle').textContent=`ข้อมูลล่าสุด • ${d.today} • ${a?a.name:'ไม่มีบัญชี'}`;document.getElementById('version').textContent=d.version;document.getElementById('settings-version').textContent=d.version;
+  const g=(d.guards||[])[0];if(g){document.getElementById('guard-name').textContent=g.name;document.getElementById('guard-date').textContent=g.deadline;document.getElementById('safe').textContent=baht(g.safe_to_spend);document.getElementById('reserved').textContent=baht(g.minimum_balance);document.getElementById('daily').textContent=baht(g.safe_daily_allowance);document.getElementById('days').textContent=g.days_left;const risk=document.getElementById('risk');risk.textContent=g.status==='breached'?'High':g.status==='due'?'Due':'Low';risk.className=g.status==='breached'?'danger':g.status==='due'?'warning':'online';document.getElementById('guard-sub').textContent=`ยอด ${baht(g.balance)} • ต้องเหลืออย่างน้อย ${baht(g.minimum_balance)}`;const pct=Math.max(0,Math.min(100,(num(g.minimum_balance)/Math.max(1,num(g.balance)))*100));document.getElementById('guard-bar').style.width=pct+'%';document.getElementById('guard-input-name').value=g.name;document.getElementById('guard-input-min').value=num(g.minimum_balance);document.getElementById('guard-input-date').value=g.deadline}
+  const tx=d.transactions||[];document.getElementById('transactions-mini').innerHTML=txHtml(tx.slice(0,6));document.getElementById('transactions-full').innerHTML=txHtml(tx);document.getElementById('tx-total').textContent=`${tx.length} รายการ`;document.getElementById('settings-transactions').textContent=tx.length;
+  const bs=(d.budget_status||{}).budgets||[];document.getElementById('budget-mini').innerHTML=bs.length?bs.slice(0,3).map(b=>budgetHtml(b)).join(''):'<div class="empty">ยังไม่มีงบรายเดือน</div>';document.getElementById('budgets-list').innerHTML=bs.length?bs.map(b=>`<div class="item">${budgetHtml(b)}<div class="item-meta">เหลือ ${baht(b.remaining)} จาก ${baht(b.budget)}</div></div>`).join(''):'<div class="empty">ยังไม่มีงบรายเดือน</div>';
+  const goals=d.goals||[];document.getElementById('goal-mini').innerHTML=goals.length?goals.slice(0,3).map(goalHtml).join(''):'<div class="empty">ยังไม่มีเป้าหมายเงินเก็บ</div>';document.getElementById('goals-list').innerHTML=goals.length?goals.map(g=>`<div class="item">${goalHtml(g)}<div class="item-meta">เป้าหมาย ${baht(g.target)}${g.target_date?` • ${esc(g.target_date)}`:''}</div></div>`).join(''):'<div class="empty">ยังไม่มีเป้าหมายเงินเก็บ</div>';
+  const guards=d.guards||[];document.getElementById('guards-list').innerHTML=guards.length?guards.map(x=>`<div class="item"><div class="item-head"><b>${esc(x.name)}</b><span class="${x.status==='breached'?'danger':x.status==='due'?'warning':'online'}">${esc(x.status)}</span></div><div class="item-meta">${esc(x.account)} • deadline ${esc(x.deadline)}<br>Balance ${baht(x.balance)} • Reserved ${baht(x.minimum_balance)} • Safe ${baht(x.safe_to_spend)} • ${baht(x.safe_daily_allowance)}/day</div></div>`).join(''):'<div class="empty">ยังไม่มี Spending Guard</div>';
+  const recurring=d.recurring||[];document.getElementById('recurring-list').innerHTML=recurring.length?recurring.map(r=>`<div class="item"><div class="item-head"><b>${esc(r.name)}</b><span>${esc(r.cadence)}</span></div><div class="item-meta">${r.kind==='income'?'+':'−'}${baht(r.amount)} • ${esc(r.category)}<br>Next: ${esc(r.next_due_date)}${r.account?` • ${esc(r.account)}`:''}</div></div>`).join(''):'<div class="empty">ยังไม่มีรายการประจำ</div>';
+  const accounts=d.accounts||[];document.getElementById('settings-accounts').textContent=accounts.length;document.getElementById('accounts-list').innerHTML=accounts.length?accounts.map(x=>`<div class="item"><div class="item-head"><b>${esc(x.name)}</b><span>${esc(x.type)}</span></div><div class="item-meta">${baht(x.balance)} ${esc(x.currency)} • ${x.active?'active':'inactive'}</div></div>`).join(''):'<div class="empty">ยังไม่มีบัญชี</div>';
+  const opts=accounts.map(x=>`<option value="${esc(x.name)}">${esc(x.name)} — ${baht(x.balance)}</option>`).join('');document.getElementById('guard-input-account').innerHTML=opts;document.getElementById('rec-account').innerHTML='<option value="">Auto</option>'+opts;
+}
+function budgetHtml(b){const p=Math.max(0,Math.min(100,Number(b.used_percent||0)));return `<div class="row"><span>${esc(b.category)}</span><b>${p}%</b></div><div class="progress"><i style="width:${p}%"></i></div>`}
+function goalHtml(g){const p=Math.max(0,Math.min(100,Number(g.progress_percent||0)));return `<div class="row"><span>${esc(g.name)}</span><b>${p}%</b></div><div class="progress"><i style="width:${p}%"></i></div><div class="sub" style="margin-top:7px">${baht(g.saved)} / ${baht(g.target)}</div>`}
+async function load(){try{const r=await fetch('/api/dashboard',{cache:'no-store'});const out=await r.json();if(!r.ok)throw new Error(out.error||'โหลดไม่สำเร็จ');apply(out);document.getElementById('core-status').textContent='Online';document.getElementById('core-status').className='online'}catch(e){let restored=false;try{const snap=JSON.parse(localStorage.getItem('finance-core-last-dashboard-v1')||'null');if(snap&&snap.data){apply(snap.data);const age=Math.max(0,Math.round((Date.now()-Number(snap.savedAt||Date.now()))/60000));document.getElementById('subtitle').textContent=`Offline snapshot • ${age} นาทีที่แล้ว`;restored=true}}catch(_){}document.getElementById('core-status').textContent=restored?'Offline':'Error';document.getElementById('core-status').className=restored?'warning':'danger';if(!restored)document.getElementById('subtitle').textContent=e.message}}
+async function post(url,body,msgId){const m=document.getElementById(msgId);m.className='status-msg';m.textContent='กำลังบันทึก…';try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const out=await r.json();if(!r.ok)throw new Error(out.error||'บันทึกไม่สำเร็จ');m.textContent='บันทึกแล้ว';apply(out.dashboard);setTimeout(()=>m.textContent='',1600);return true}catch(e){if(url==='/api/entry'&&window.financePWA&&(!navigator.onLine||e instanceof TypeError)){try{await window.financePWA.queueEntry(body.text);m.textContent='ออฟไลน์ • เก็บไว้รอซิงก์แล้ว';m.className='status-msg warning';return true}catch(qe){m.textContent=qe.message||'เก็บคิวไม่สำเร็จ';m.className='status-msg danger';return false}}m.textContent=e.message;m.className='status-msg danger';return false}}
+async function addEntry(ev){ev.preventDefault();const e=document.getElementById('entry'),text=e.value.trim();if(!text)return;if(await post('/api/entry',{text},'msg'))e.value=''}
+async function saveGuard(ev){ev.preventDefault();await post('/api/guard',{name:document.getElementById('guard-input-name').value,minimum_balance:document.getElementById('guard-input-min').value,deadline:document.getElementById('guard-input-date').value,account:document.getElementById('guard-input-account').value},'guard-msg')}
+async function saveBudget(ev){ev.preventDefault();await post('/api/budget',{category:document.getElementById('budget-category').value,amount:document.getElementById('budget-amount').value,warning_percent:Number(document.getElementById('budget-warning').value||80)},'budget-msg')}
+async function saveGoal(ev){ev.preventDefault();await post('/api/goal',{name:document.getElementById('goal-name').value,target:document.getElementById('goal-target').value,saved:document.getElementById('goal-saved').value,target_date:document.getElementById('goal-date').value},'goal-msg')}
+async function saveRecurring(ev){ev.preventDefault();await post('/api/recurring',{name:document.getElementById('rec-name').value,kind:document.getElementById('rec-kind').value,amount:document.getElementById('rec-amount').value,category:document.getElementById('rec-category').value,cadence:document.getElementById('rec-cadence').value,next_due_date:document.getElementById('rec-date').value,description:document.getElementById('rec-description').value,account:document.getElementById('rec-account').value},'rec-msg')}
+let installPrompt=null;
+const PWA_HTTPS_URL=location.origin+'/#settings';
+const installBtn=document.getElementById('install-app');
+const pwaStatus=document.getElementById('pwa-status');
+const pwaBadge=document.getElementById('pwa-badge');
+const installMsg=document.getElementById('install-msg');
+
+function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true}
+function updatePwaState(){
+  if(isStandalone()){
+    pwaBadge.textContent='Installed';pwaBadge.className='online';pwaStatus.textContent='กำลังใช้งานแบบแอป Standalone แล้ว';installBtn.textContent='Installed';installBtn.disabled=true;return;
+  }
+  if(!window.isSecureContext){
+    pwaBadge.textContent='HTTPS required';pwaBadge.className='warning';pwaStatus.textContent='หน้า HTTP ใช้งานเว็บได้ปกติ แต่การติดตั้ง PWA แบบเต็มต้องเปิดผ่าน HTTPS ของ Tailscale';installBtn.textContent='เปิดโหมดติดตั้ง HTTPS';installBtn.disabled=false;return;
+  }
+  pwaBadge.textContent=installPrompt?'Ready':'PWA ready';pwaBadge.className='online';pwaStatus.textContent=installPrompt?'พร้อมติดตั้งเป็นแอปบนเครื่องนี้':'รองรับ PWA แล้ว หากเบราว์เซอร์ยังไม่แสดง prompt สามารถใช้เมนู “ติดตั้งและสร้างทางลัด” ได้';installBtn.textContent=installPrompt?'Install app':'Install / Add shortcut';installBtn.disabled=false;
+}
+
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;updatePwaState()});
+window.addEventListener('appinstalled',()=>{installPrompt=null;installMsg.textContent='ติดตั้ง Finance Core แล้ว';updatePwaState()});
+installBtn.addEventListener('click',async()=>{
+  installMsg.textContent='';
+  if(isStandalone())return;
+  if(!window.isSecureContext){location.href=PWA_HTTPS_URL;return;}
+  if(installPrompt){installPrompt.prompt();const result=await installPrompt.userChoice;installMsg.textContent=result.outcome==='accepted'?'กำลังติดตั้ง…':'ยกเลิกการติดตั้ง';installPrompt=null;updatePwaState();return;}
+  installMsg.textContent='เปิดเมนู Brave แล้วเลือก “ติดตั้งและสร้างทางลัด”';
+});
+updatePwaState();
+
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));window.addEventListener('hashchange',()=>show(location.hash.slice(1)||'overview'));show(location.hash.slice(1)||'overview');load();
+</script>
+<script src="/pwa.js?v=8"></script>
+</body>
+</html>

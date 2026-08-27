@@ -1,0 +1,25 @@
+[Unit]
+Description=Finance Core Web UI
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=finance-mcp
+Group=finance-mcp
+WorkingDirectory=/opt/finance-core/web
+Environment=FINANCE_DB_PATH=/var/lib/finance-mcp/finance.sqlite3
+Environment=FINANCE_TIMEZONE=Asia/Bangkok
+Environment=FINANCE_CURRENCY=THB
+Environment=FINANCE_VAPID_SUBJECT=mailto:admin@example.com
+ExecStart=/opt/finance-mcp/.venv/bin/python /opt/finance-core/web/app.py
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/finance-mcp /opt/finance-core/web
+
+[Install]
+WantedBy=multi-user.target
