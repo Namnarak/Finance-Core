@@ -129,12 +129,20 @@ class AdvancedFinanceDB(FinanceDB):
             raise ValueError(f"ไม่พบบัญชี: {account}")
         return row
 
+    def _transaction_account(self, conn, account: str | None):
+        """Resolve an explicit account, or auto-select when exactly one account is active."""
+        if account:
+            return self._account(conn, account)
+        rows = conn.execute("SELECT * FROM accounts WHERE is_active=1 ORDER BY created_at").fetchall()
+        return rows[0] if len(rows) == 1 else None
+
     def add_transaction(self, *args: Any, account: str | None = None, **kwargs: Any) -> dict[str, Any]:
         result = super().add_transaction(*args, **kwargs)
-        if account and not result.get("duplicate_prevented"):
+        if not result.get("duplicate_prevented"):
             with self.connect() as conn:
-                a = self._account(conn, account)
-                conn.execute("UPDATE transactions SET account_id=?,updated_at=? WHERE id=?", (a["id"], iso_now(), result["id"]))
+                a = self._transaction_account(conn, account)
+                if a:
+                    conn.execute("UPDATE transactions SET account_id=?,updated_at=? WHERE id=?", (a["id"], iso_now(), result["id"]))
             result = self.get_transaction(result["id"]) or result
         return result
 

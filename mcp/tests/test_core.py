@@ -4,6 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from finance_mcp.advanced import AdvancedFinanceDB
 from finance_mcp.core import FinanceDB, money_to_minor, parse_simple_entry
 
 
@@ -71,6 +72,21 @@ class FinanceCoreTest(unittest.TestCase):
         self.assertFalse(a["duplicate_prevented"])
         self.assertTrue(b["duplicate_prevented"])
         self.assertEqual(a["id"], b["id"])
+
+    def test_advanced_auto_links_only_active_account(self):
+        db = AdvancedFinanceDB(Path(self.tmp.name) / "advanced.sqlite3")
+        account = db.create_account("เงินปัจจุบัน", account_type="cash", opening_balance="100")
+        tx = db.add_transaction(kind="income", amount="50", description="ได้เงินมา", occurred_at="วันนี้")
+        stored = db.get_transaction(tx["id"])
+        self.assertEqual(stored["account_id"], account["id"])
+        self.assertEqual(db.get_account(account["id"])["balance"], "150.00")
+
+    def test_advanced_does_not_guess_when_multiple_accounts_are_active(self):
+        db = AdvancedFinanceDB(Path(self.tmp.name) / "advanced-multi.sqlite3")
+        db.create_account("เงินปัจจุบัน", account_type="cash", opening_balance="100")
+        db.create_account("ธนาคาร", account_type="bank", opening_balance="200")
+        tx = db.add_transaction(kind="income", amount="50", description="ได้เงินมา", occurred_at="วันนี้")
+        self.assertIsNone(db.get_transaction(tx["id"])["account_id"])
 
 
 if __name__ == "__main__":

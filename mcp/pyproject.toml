@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "namkrub-finance-mcp"
-version = "2.2.0"
+version = "2.2.1"
 description = "Private personal finance MCP server for ChatGPT via OpenAI Secure MCP Tunnel"
 requires-python = ">=3.11"
 dependencies = [

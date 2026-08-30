@@ -105,6 +105,6 @@ See [SECURITY.md](SECURITY.md).
 
 ## Current version
 
-Finance Core MCP: **v2.2.0**
+Finance Core MCP: **v2.2.1**
 
 The current v2.2 focus is **“แน่ใจค่อยลง / ไม่แน่ใจถาม”**: financial records should be accurate before they are convenient.

@@ -10,7 +10,7 @@ from .core import format_summary, format_transactions, parse_simple_entry
 
 mcp = MCPServer(
     "NamKrub Finance",
-    version="2.2.0",
+    version="2.2.1",
     instructions=(
         "ระบบรายรับรายจ่ายส่วนตัว ใช้ข้อมูลจากฐานข้อมูลจริงเท่านั้น ห้ามเดายอดเงินจากบทสนทนา "
         "หลักสำคัญ: แน่ใจค่อยบันทึก ไม่แน่ใจต้องถามผู้ใช้ก่อน โดยเฉพาะข้อความสั้น รายการไม่ชัด หมวดไม่ชัด หรือไม่รู้ว่าเงินเข้า/ออก "

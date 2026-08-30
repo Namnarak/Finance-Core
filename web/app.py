@@ -51,7 +51,7 @@ def dashboard() -> dict:
         "debts": d.list_debts(open_only=True),
         "guards": guards,
         "today": date.today().isoformat(),
-        "version": "2.2.0",
+        "version": "2.2.1",
     }
 
 
@@ -95,7 +95,7 @@ class Handler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         try:
             if path == "/api/health":
-                self._json({"ok": True, "service": "finance-web", "core_version": "2.2.0"})
+                self._json({"ok": True, "service": "finance-web", "core_version": "2.2.1"})
                 return
             if path == "/api/push/config":
                 self._json({"public_key": push_public_key(), "subscriptions": subscription_count()})
