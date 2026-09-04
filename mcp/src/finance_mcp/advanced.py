@@ -8,7 +8,7 @@ from datetime import date, timedelta
 from decimal import Decimal
 from typing import Any, Literal
 
-from .config import DEFAULT_CURRENCY
+from .config import DEFAULT_CURRENCY, PRIMARY_ACCOUNT
 from .core import FinanceDB, iso_now, minor_to_money, money_to_minor, normalize_date, now_local
 
 AccountType = Literal["cash", "bank", "wallet", "savings", "investment", "other"]
@@ -25,6 +25,23 @@ CREATE TABLE IF NOT EXISTS accounts (
     is_active INTEGER NOT NULL DEFAULT 1,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS finance_settings (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS account_balance_adjustments (
+    id TEXT PRIMARY KEY,
+    account_id TEXT NOT NULL REFERENCES accounts(id),
+    old_opening_balance_minor INTEGER NOT NULL,
+    new_opening_balance_minor INTEGER NOT NULL,
+    balance_before_minor INTEGER NOT NULL,
+    target_balance_minor INTEGER NOT NULL,
+    reason TEXT NOT NULL,
+    created_at TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS transfers (
@@ -129,12 +146,79 @@ class AdvancedFinanceDB(FinanceDB):
             raise ValueError(f"ไม่พบบัญชี: {account}")
         return row
 
+    def _primary_account_row(self, conn):
+        setting = conn.execute("SELECT value FROM finance_settings WHERE key='primary_account'").fetchone()
+        preferred = setting["value"] if setting else PRIMARY_ACCOUNT
+        if preferred:
+            row = conn.execute(
+                "SELECT * FROM accounts WHERE is_active=1 AND (id=? OR lower(name)=lower(?))",
+                (preferred, preferred),
+            ).fetchone()
+            if row:
+                return row
+        return None
+
     def _transaction_account(self, conn, account: str | None):
-        """Resolve an explicit account, or auto-select when exactly one account is active."""
+        """Resolve explicit account, then configured primary account, then sole active account."""
         if account:
             return self._account(conn, account)
+        primary = self._primary_account_row(conn)
+        if primary:
+            return primary
         rows = conn.execute("SELECT * FROM accounts WHERE is_active=1 ORDER BY created_at").fetchall()
         return rows[0] if len(rows) == 1 else None
+
+    def set_primary_account(self, account: str) -> dict[str, Any]:
+        now = iso_now()
+        with self.connect() as conn:
+            row = self._account(conn, account)
+            if not row["is_active"]:
+                raise ValueError("บัญชีหลักต้องเป็นบัญชีที่เปิดใช้งาน")
+            conn.execute(
+                "INSERT INTO finance_settings(key,value,updated_at) VALUES('primary_account',?,?) "
+                "ON CONFLICT(key) DO UPDATE SET value=excluded.value,updated_at=excluded.updated_at",
+                (row["id"], now),
+            )
+        return self.get_primary_account()
+
+    def get_primary_account(self) -> dict[str, Any] | None:
+        with self.connect() as conn:
+            row = self._primary_account_row(conn)
+            aid = row["id"] if row else None
+        return self.get_account(aid) if aid else None
+
+    def set_account_active(self, account: str, active: bool) -> dict[str, Any]:
+        with self.connect() as conn:
+            row = self._account(conn, account)
+            if not active:
+                primary = self._primary_account_row(conn)
+                if primary and primary["id"] == row["id"]:
+                    raise ValueError("ปิดบัญชีหลักไม่ได้ กรุณาเปลี่ยนบัญชีหลักก่อน")
+            conn.execute("UPDATE accounts SET is_active=?,updated_at=? WHERE id=?", (1 if active else 0, iso_now(), row["id"]))
+        return self.get_account(row["id"])
+
+    def reconcile_account_balance(self, account: str, balance: str, reason: str) -> dict[str, Any]:
+        reason = reason.strip()
+        if not reason:
+            raise ValueError("ต้องระบุเหตุผลในการปรับยอด")
+        target = 0 if str(balance).strip() in {"0", "0.0", "0.00"} else money_to_minor(balance)
+        with self.connect() as conn:
+            row = self._account(conn, account)
+            aid = row["id"]
+        before = self.get_account(aid)
+        before_minor = money_to_minor(before["balance"].replace(",", ""))
+        with self.connect() as conn:
+            row = self._account(conn, aid)
+            old_opening = int(row["opening_balance_minor"])
+            new_opening = old_opening + (target - before_minor)
+            now = iso_now()
+            conn.execute("UPDATE accounts SET opening_balance_minor=?,updated_at=? WHERE id=?", (new_opening, now, aid))
+            conn.execute(
+                "INSERT INTO account_balance_adjustments(id,account_id,old_opening_balance_minor,new_opening_balance_minor,balance_before_minor,target_balance_minor,reason,created_at) VALUES(?,?,?,?,?,?,?,?)",
+                (str(uuid.uuid4()), aid, old_opening, new_opening, before_minor, target, reason, now),
+            )
+        after = self.get_account(aid)
+        return {"account": after, "balance_before": before["balance"], "target_balance": minor_to_money(target), "reason": reason}
 
     def add_transaction(self, *args: Any, account: str | None = None, **kwargs: Any) -> dict[str, Any]:
         result = super().add_transaction(*args, **kwargs)
@@ -171,7 +255,8 @@ class AdvancedFinanceDB(FinanceDB):
             incoming = conn.execute("SELECT COALESCE(SUM(amount_minor),0) FROM transfers WHERE to_account_id=?", (a["id"],)).fetchone()[0]
             outgoing = conn.execute("SELECT COALESCE(SUM(amount_minor),0) FROM transfers WHERE from_account_id=?", (a["id"],)).fetchone()[0]
             balance = int(a["opening_balance_minor"]) + int(tx) + int(incoming) - int(outgoing)
-            return {"id":a["id"],"name":a["name"],"type":a["account_type"],"balance":minor_to_money(balance),"opening_balance":minor_to_money(int(a["opening_balance_minor"])),"currency":a["currency"],"active":bool(a["is_active"])}
+            primary = self._primary_account_row(conn)
+            return {"id":a["id"],"name":a["name"],"type":a["account_type"],"balance":minor_to_money(balance),"opening_balance":minor_to_money(int(a["opening_balance_minor"])),"currency":a["currency"],"active":bool(a["is_active"]),"primary":bool(primary and primary["id"] == a["id"])}
 
     def list_accounts(self, active_only: bool = True) -> list[dict[str, Any]]:
         with self.connect() as conn:
