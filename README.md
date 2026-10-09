@@ -3,6 +3,8 @@
 
 <a href="https://github.com/Namnarak/Finance-Core"><img width="100%" alt="Finance Core banner" src="https://capsule-render.vercel.app/api?type=waving&color=0:0A1824,100:0891B2&height=210&section=header&text=Finance%20Core&fontSize=43&fontColor=ffffff&fontAlignY=36&desc=Private-first%20finances%20with%20MCP%20and%20SQLite&descAlignY=59&descSize=16"></a>
 
+<p><img src="web/app-logo.jpg" alt="Finance-Core logo" width="136" /></p>
+
 <img alt="PROJECT: Finance Tools" src="https://img.shields.io/badge/PROJECT-Finance%20Tools-0891B2?style=flat-square&labelColor=0A1824"> <img alt="STACK: Python · SQLite" src="https://img.shields.io/badge/STACK-Python%20%C2%B7%20SQLite-0891B2?style=flat-square&labelColor=0A1824">
 
 <p><strong>Private-first finances with MCP and SQLite</strong></p>
@@ -122,3 +124,19 @@ See [SECURITY.md](SECURITY.md).
 Finance Core MCP: **v2.2.1**
 
 The current v2.2 focus is **“แน่ใจค่อยลง / ไม่แน่ใจถาม”**: financial records should be accurate before they are convenient.
+
+---
+
+<!-- CYTECH_STAR_HISTORY:START -->
+
+## Star History
+
+<a href="https://star-history.dera.page/#Namnarak/Finance-Core&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=Namnarak/Finance-Core&type=date&legend=top-left&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=Namnarak/Finance-Core&type=date&legend=top-left" />
+    <img alt="GitHub star history for Namnarak/Finance-Core" src="https://star-history.dera.page/svg?repos=Namnarak/Finance-Core&type=date&legend=top-left" width="800" />
+  </picture>
+</a>
+
+<!-- CYTECH_STAR_HISTORY:END -->
