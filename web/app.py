@@ -37,7 +37,7 @@ def db() -> AdvancedFinanceDB:
 def dashboard() -> dict:
     d = db()
     accounts = d.list_accounts()
-    current = next((a for a in accounts if a["name"] == "เงินปัจจุบัน"), accounts[0] if accounts else None)
+    current = d.get_primary_account() or (accounts[0] if accounts else None)
     guards = d.safe_spending()
     return {
         "accounts": accounts,

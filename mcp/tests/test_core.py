@@ -75,7 +75,7 @@ class FinanceCoreTest(unittest.TestCase):
 
     def test_advanced_auto_links_only_active_account(self):
         db = AdvancedFinanceDB(Path(self.tmp.name) / "advanced.sqlite3")
-        account = db.create_account("เงินปัจจุบัน", account_type="cash", opening_balance="100")
+        account = db.create_account("Main Account", account_type="cash", opening_balance="100")
         tx = db.add_transaction(kind="income", amount="50", description="ได้เงินมา", occurred_at="วันนี้")
         stored = db.get_transaction(tx["id"])
         self.assertEqual(stored["account_id"], account["id"])
@@ -83,10 +83,20 @@ class FinanceCoreTest(unittest.TestCase):
 
     def test_advanced_does_not_guess_when_multiple_accounts_are_active(self):
         db = AdvancedFinanceDB(Path(self.tmp.name) / "advanced-multi.sqlite3")
-        db.create_account("เงินปัจจุบัน", account_type="cash", opening_balance="100")
-        db.create_account("ธนาคาร", account_type="bank", opening_balance="200")
+        db.create_account("Main Account", account_type="cash", opening_balance="100")
+        db.create_account("Secondary Account", account_type="bank", opening_balance="200")
         tx = db.add_transaction(kind="income", amount="50", description="ได้เงินมา", occurred_at="วันนี้")
         self.assertIsNone(db.get_transaction(tx["id"])["account_id"])
+
+    def test_primary_account_routes_unassigned_transactions(self):
+        db = AdvancedFinanceDB(Path(self.tmp.name) / "advanced-primary.sqlite3")
+        db.create_account("Main Account", account_type="cash", opening_balance="100")
+        db.create_account("Secondary Account", account_type="bank", opening_balance="200")
+        db.set_primary_account("Secondary Account")
+        tx = db.add_transaction(kind="income", amount="50", description="income", occurred_at="วันนี้")
+        stored = db.get_transaction(tx["id"])
+        self.assertEqual(stored["account_id"], db.get_primary_account()["id"])
+        self.assertEqual(db.get_primary_account()["balance"], "250.00")
 
 
 if __name__ == "__main__":

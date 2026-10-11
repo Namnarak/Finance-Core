@@ -150,7 +150,7 @@ def get_ledger_view(
     d = db()
     rows = d.list_transactions(start_date=start_date, end_date=end_date, kind=kind, category=category, query=query, limit=limit)
     accounts = d.list_accounts()
-    current = next((a for a in accounts if a["name"] == "เงินปัจจุบัน"), accounts[0] if accounts else None)
+    current = d.get_primary_account() or (accounts[0] if accounts else None)
     balance = current["balance"] if current else None
     return {
         "transactions": rows,
@@ -188,7 +188,7 @@ def get_summary(
     d = db()
     result = d.summary(period, start_date, end_date)
     accounts = d.list_accounts()
-    current = next((a for a in accounts if a["name"] == "เงินปัจจุบัน"), accounts[0] if accounts else None)
+    current = d.get_primary_account() or (accounts[0] if accounts else None)
     balance = current["balance"] if current else None
     result["current_balance"] = balance
     result["text"] = format_summary(result, balance=balance)
@@ -308,9 +308,21 @@ def get_financial_alerts() -> list[dict]:
 def create_account(name: str, account_type: Literal["cash","bank","wallet","savings","investment","other"]="bank", opening_balance: str="0") -> dict:
     return db().create_account(name, account_type, opening_balance)
 
-@mcp.tool(title="ดูบัญชีและยอดคงเหลือ", description="List money accounts and calculated balances including transfers and linked transactions.", annotations=READ)
+@mcp.tool(title="ดูบัญชีและยอดคงเหลือ", description="List money accounts and calculated balances including transfers and linked transactions. The primary account is marked with primary=true.", annotations=READ)
 def list_accounts(active_only: bool=True) -> list[dict]:
     return db().list_accounts(active_only)
+
+@mcp.tool(title="ตั้งบัญชีหลัก", description="Set the primary money account used for current balance and for transactions that omit an account.", annotations=WRITE)
+def set_primary_account(account: str) -> dict:
+    return db().set_primary_account(account)
+
+@mcp.tool(title="เปิดหรือปิดบัญชี", description="Activate or deactivate a tracked account without deleting its history.", annotations=WRITE)
+def set_account_active(account: str, active: bool) -> dict:
+    return db().set_account_active(account, active)
+
+@mcp.tool(title="ปรับยอดบัญชีให้ตรง", description="Reconcile an account to a known real balance without creating fake income or expense. Stores an audit record and requires a reason.", annotations=WRITE)
+def reconcile_account_balance(account: str, balance: str, reason: str) -> dict:
+    return db().reconcile_account_balance(account, balance, reason)
 
 @mcp.tool(title="โอนเงินระหว่างบัญชี", description="Transfer money between two tracked accounts without affecting income/expense totals.", annotations=WRITE)
 def transfer_accounts(from_account: str, to_account: str, amount: str, occurred_at: str|None=None, note: str|None=None) -> dict:
