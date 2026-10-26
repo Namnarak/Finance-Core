@@ -36,3 +36,7 @@ export CONTROL_PLANE_API_KEY='...'
 Runtime secrets are written outside the repository under `/etc/finance-mcp/`.
 
 See the repository root README for the full Finance Core architecture and Web/PWA setup.
+
+## Account setup for each installation
+
+The public repository contains no preset bank or wallet accounts. Each user creates their own accounts and selects their own primary account via `set_primary_account(account="Your Account Name")`. The optional `FINANCE_PRIMARY_ACCOUNT` setting in a private environment can also name an existing account. Never commit your personal database, balances or runtime secrets. Without a chosen primary, no arbitrary first account is shown as the primary on summaries.

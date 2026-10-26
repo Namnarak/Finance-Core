@@ -149,8 +149,7 @@ def get_ledger_view(
 ) -> dict:
     d = db()
     rows = d.list_transactions(start_date=start_date, end_date=end_date, kind=kind, category=category, query=query, limit=limit)
-    accounts = d.list_accounts()
-    current = d.get_primary_account() or (accounts[0] if accounts else None)
+    current = d.get_primary_account()
     balance = current["balance"] if current else None
     return {
         "transactions": rows,
@@ -187,8 +186,7 @@ def get_summary(
     """Calculate deterministic totals from SQLite. For custom period provide YYYY-MM-DD start/end dates."""
     d = db()
     result = d.summary(period, start_date, end_date)
-    accounts = d.list_accounts()
-    current = d.get_primary_account() or (accounts[0] if accounts else None)
+    current = d.get_primary_account()
     balance = current["balance"] if current else None
     result["current_balance"] = balance
     result["text"] = format_summary(result, balance=balance)

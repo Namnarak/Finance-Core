@@ -107,6 +107,16 @@ FINANCE_VAPID_SUBJECT=mailto:admin@example.com
 
 The included `web/finance-web.service` is an example systemd unit. Adjust paths and user/group names for your deployment.
 
+## Public distribution vs. private data
+
+This repository distributes **software, not anyone's personal finance data**. Each installation creates and maintains its **own** SQLite database and chooses its own accounts and primary account. No bank or wallet is preselected for users.
+
+- Create accounts using the `create_account` MCP tool, then choose your own default with `set_primary_account(account="Your Account Name")`.
+- Alternatively, set `FINANCE_PRIMARY_ACCOUNT` to an account name or ID in your private environment (not in Git).
+- When no primary account is selected, dashboards do **not** label the first account as primary. A transaction without a specified account is linked automatically only when exactly one account is active; otherwise it remains unassigned until explicitly categorized.
+- `FINANCE_DB_PATH` should point to a private, writable database **outside** this repository. Do not commit `.sqlite3`, account exports, backups, `.env`, keys, or real balances.
+- Updating the shared source on GitHub does not change the live database or its account preferences.
+
 ## Security model
 
 This project is designed to be private-first:

@@ -36,8 +36,7 @@ def db() -> AdvancedFinanceDB:
 
 def dashboard() -> dict:
     d = db()
-    accounts = d.list_accounts()
-    current = d.get_primary_account() or (accounts[0] if accounts else None)
+    current = d.get_primary_account()
     guards = d.safe_spending()
     return {
         "accounts": accounts,
