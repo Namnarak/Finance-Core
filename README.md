@@ -117,6 +117,10 @@ This repository distributes **software, not anyone's personal finance data**. Ea
 - `FINANCE_DB_PATH` should point to a private, writable database **outside** this repository. Do not commit `.sqlite3`, account exports, backups, `.env`, keys, or real balances.
 - Updating the shared source on GitHub does not change the live database or its account preferences.
 
+## License
+
+Licensed under the [MIT License](LICENSE). See the license file for details.
+
 ## Security model
 
 This project is designed to be private-first:
